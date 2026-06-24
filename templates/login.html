@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='CSS/login.css')}}">
+    <title>Login LogBus</title>
+</head>
+
+<body>
+
+    <main>
+
+        <header>
+            <h1>LOGBUS</h1>
+            <p>Sistema de Gestão de Transporte</p>
+        </header>
+
+        <section class="login-box">
+
+            <!--Aba das rotas (Goiânia e Trindade)-->
+            <div class="aba" name="login_tipo">
+                <button class="btn aba-btn active" value="aluno" data-tab="aluno">Alunos</button>
+                <button class="btn aba-btn" value="gestao" data-tab="adm">ADM</button>
+            </div>
+            <!--Fim aba das rotas (Goiânia e Trindade)-->
+
+
+            <!--Login aluno-->
+            <div id="aluno" class="aba-conteudo active">
+                <h2 class="titulo">LOGIN</h2>
+                <form action="" method="POST">
+                    <input type="hidden" name="login_tipo" value="aluno">
+                    <input type="text" name="user" id="user_aluno" placeholder="Usuário" autocomplete="off" required>
+                    <input type="password" name="senha" id="senha_aluno" placeholder="Senha" autocomplete="off"
+                        required>
+                    {% if resultado %}
+                    <p class="mensagem_erro">{{resultado}}</p>
+                    {% endif %}
+                    <button type="submit" class="btn">ENTRAR</button>
+                </form>
+                <a href="{{ url_for('cadastrar')}}" id="btn_registrar">REGISTRA-SE</a></button>
+            </div>
+            <!--Fim login aluno-->
+
+
+            <!--Login ADM-->
+            <div id="adm" class="aba-conteudo">
+                <h2 class="titulo">LOGIN</h2>
+                <form action="" method="post">
+                    <input type="hidden" name="login_tipo" value="gestao">
+                    <input type="text" name="user" id="user_adm" placeholder="Usuário" autocomplete="off" required>
+                    <input type="password" name="senha" id="senha_adm" placeholder="Senha" autocomplete="off" required>
+                    {% if resultado %}
+                    <p class="mensagem_erro">{{resultado}}</p>
+                    {% endif %}
+                    <button type="submit" class="btn">ENTRAR</button>
+                </form>
+            </div>
+            <!--Fim login Adm-->
+
+        </section>
+
+    </main>
+
+    <script src="/static/login.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='CSS/cadastro.css')}}">
+    <title>Cadastro LogBus</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>LOGBUS</h1>
+        <p>Sistema de Gestão de Transporte</p>
+    </header>
+
+    <section id="main_box">
+
+        <form action="/cadastro" method="POST" enctype="multipart/form-data">
+
+            <!--Registrar aluno-->
+            <div id="registrar_aluno">
+                <h2 class="titulo">CADASTRO DE ALUNO</h2>
+
+                <input type="text" name="nome" id="nome" placeholder="NOME COMPLETO" autocomplete="off" required>
+                <input type="text" name="user" id="user" placeholder="APELIDO" autocomplete="off" required>
+                <input type="tel" name="telefone" id="telefone" placeholder="(DD) 99999-9999" autocomplete="off"
+                    required>
+                <input type="text" name="cpf" id="cpf" placeholder="999.999.999-99" autocomplete="off" required>
+                <input type="email" name="email" id="email" placeholder="EXEMPLO@gmail.com" autocomplete="off" required>
+                <input type="password" name="senha" id="register_senha_aluno" placeholder="SENHA" autocomplete="off"
+                    required>
+
+                <span id="divisor"></span>
+
+                <input type="text" name="faculdade" id="faculdade" placeholder="FACULDADE - UNIDADE" autocomplete="off"
+                    required>
+                <input type="text" name="curso" id="curso" placeholder="CURSO" autocomplete="off" required>
+                <select name="rota" id="rota" required>
+                    <option value="" selected disabled>SELECIONE A CIDADE</option>
+                    <option value="goiania">GOIÂNIA</option>
+                    <option value="trindade">TRINDADE</option>
+                </select>
+
+                <p id="mensagem_erro"></p>
+
+                <button type="button" id="btn_add-anexo">PRÓXIMO</button>
+
+                <a href="{{ url_for('tela_principal')}}" id="btn_voltar-login" class="btn_voltar">VOLTAR</a>
+            </div>
+            <!--Fim do registrar Aluno-->
+
+            <!--Anexo de Documentos-->
+            <div id="anexo_documento">
+                <h2 class="titulo">ANEXO DE DOCUMENTOS</h2>
+
+                <label for="rg_frente">FOTO DE PERFIL:</label>
+                <input type="file" name="ft_perfil" id="ft_perfil" accept=".png, .jpg, .jpeg" required>
+
+                <label for="rg_frente">INDENTIDADE (FRENTE):</label>
+                <input type="file" name="rg_frente" id="rg_frente" accept=".pdf, .png, .jpg, .jpeg" required>
+
+                <label for="rg_verso">INDENTIDADE (VERSO):</label>
+                <input type="file" name="rg_verso" id="rg_verso" accept=".pdf, .png, .jpg, .jpeg" required>
+
+                <label for="comprovante_endereco">CONPROVANTE DE ENDEREÇO:</label>
+                <input type="file" name="comprovante_endereco" id="comprovante_endereco"
+                    accept=".pdf, .png, .jpg, .jpeg" required>
+
+                <label for="comprovante_matricula">CONPROVANTE DE MATRÍCULA:</label>
+                <input type="file" name="comprovante_matricula" id="comprovante_matricula"
+                    accept=".pdf, .png, .jpg, .jpeg" required>
+
+                <p id="mensagem_erro-anexo"></p>
+
+                <button type="submit" id="btn_register">REGISTRAR</button>
+
+                <button type="button" id="btn_voltar-cadastro" class="btn_voltar">VOLTAR</button>
+            </div>
+            <!--Fim do Anexo de Documentos-->
+
+        </form>
+    </section>
+
+    <script src="/static/cadastro.js"></script>
+</body>
+
+</html>

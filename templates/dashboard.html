@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="/static/CSS/dashboard.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='CSS/dashboard.css')}}">
+    <title>LogBus</title>
+</head>
+
+<body>
+
+    <!--Cabeçalho-->
+    <header>
+        <h1>LOGBUS</h1>
+        <p>Sistema de Gestão de Transporte</p>
+    </header>
+    <!--Fim Cabeçalho-->
+
+
+    <main>
+
+
+        <!--Nav lateral-->
+        <nav>
+            <ul>
+                <li>
+                    <h2>{{ usuario }}</h2>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('admin')}}">
+                        <i class="fa-solid fa-house"></i>
+                        INÍCIO
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" id="nav_ativo">
+                        <i class="fa-solid fa-chart-line"></i>
+                        DASHBOARD
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('lista_espera')}}">
+                        <i class="fa-solid fa-clock"></i>
+                        LISTA DE ESPERA
+                    </a>
+                </li>
+
+                <a href="{{ url_for('tela_principal')}}" id="btn_sair">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    SAIR
+                </a>
+            </ul>
+        </nav>
+        <!--Fim nav lateral-->
+
+        <div class="dashboard">
+
+            <h2>DADOS GLOBAIS</h2>
+
+            <section id="dados_global">
+
+                <div class="box-dados">
+                    <h3>
+                        <i class="fa-solid fa-users"></i>
+                        TOTAL DE ALUNOS
+                    </h3>
+                    <div class="valor">
+                        {{ mensagem_total_aluno or 0 }}
+                    </div>
+                </div>
+
+                <div class="box-dados">
+                    <h3>
+                        <i class="fa-solid fa-user-check"></i>
+                        ALUNOS ATIVOS
+                    </h3>
+                    <div class="valor">
+                        {{ mensagem_total_ativo or 0 }}
+                    </div>
+                </div>
+
+                <div class="box-dados">
+                    <h3>
+                        <i class="fa-solid fa-clock"></i>
+                        LISTA DE ESPERA
+                    </h3>
+                    <div class="valor">
+                        {{ mensagem_total_espera or 0 }}
+                    </div>
+                </div>
+
+                <div class="box-dados">
+                    <h3>
+                        <i class="fa-solid fa-school"></i>
+                        FACULDADES
+                    </h3>
+                    <div class="valor">
+                        {{ mensagem_total_faculdade or 0 }}
+                    </div>
+                </div>
+
+            </section>
+
+
+
+            <h2>
+                <i class="fa-solid fa-location-dot"></i>
+                DADOS GOIÂNIA
+            </h2>
+
+            <section id="dados_goiania">
+
+                <div class="box-dados">
+                    <h3>
+                        <i class="fa-solid fa-user-check"></i>
+                        ALUNOS ATIVOS
+                    </h3>
+                    <div class="valor">{{mensagem_total_ativoG or 0}}</div>
+                </div>
+
+                <div class="box-dados">
+                    <h3>
+                        <i class="fa-solid fa-clock"></i>
+                        LISTA DE ESPERA
+                    </h3>
+                    <div class="valor">{{mensagem_total_esperaG or 0}}</div>
+                </div>
+
+                <div class="box-dados">
+                    <h3>
+                        <i class="fa-solid fa-school"></i>
+                        FACULDADES
+                    </h3>
+                    <div class="valor">{{mensagem_total_faculdadeG or 0}}</div>
+                </div>
+
+            </section>
+
+
+
+            <h2>
+                <i class="fa-solid fa-location-dot"></i>
+                DADOS TRINDADE
+            </h2>
+
+            <section id="dados_trindade">
+
+                <div class="box-dados">
+                    <h3>
+                        <i class="fa-solid fa-user-check"></i>
+                        ALUNOS ATIVOS
+                    </h3>
+
+                    <div class="valor">{{ mensagem_total_ativoT or 0}}</div>
+
+                </div>
+
+                <div class="box-dados">
+                    <h3>
+                        <i class="fa-solid fa-clock"></i>
+                        LISTA DE ESPERA
+                    </h3>
+                    <div class="valor">{{ mensagem_total_esperaT or 0}}</div>
+                </div>
+
+                <div class="box-dados">
+                    <h3>
+                        <i class="fa-solid fa-school"></i>
+                        FACULDADES
+                    </h3>
+                    <div class="valor">{{mensagem_total_faculdadeT or 0}}</div>
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

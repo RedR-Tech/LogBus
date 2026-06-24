@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='CSS/adm.css')}}">
+    <title>LogBus</title>
+</head>
+
+<body>
+
+
+    <!--Cabeçalho-->
+    <header>
+        <h1>LOGBUS</h1>
+        <p>Sistema de Gestão de Transporte</p>
+    </header>
+    <!--Fim Cabeçalho-->
+
+
+    <main>
+        <!--Nav lateral-->
+        <nav>
+            <ul>
+                <li>
+                    <h2>{{ usuario }}</h2>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('admin')}}" id="nav_ativo">
+                        <i class="fa-solid fa-house"></i>
+                        INÍCIO
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('dashboard')}}">
+                        <i class="fa-solid fa-chart-line"></i>
+                        DASHBOARD
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('lista_espera')}}">
+                        <i class="fa-solid fa-clock"></i>
+                        LISTA DE ESPERA
+                    </a>
+                </li>
+
+                <a href="{{ url_for('tela_principal')}}" id="btn_sair">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    SAIR
+                </a>
+            </ul>
+        </nav>
+        <!--Fim nav lateral-->
+
+
+        <!--Main da pág. ADM-->
+        <section class="rota_box">
+
+            <!--Aba de rota (Goiânia e Trindade)-->
+            <div class="aba">
+                <button class="aba-btn active" data-tab="rota_goiania">
+                    GOIÂNIA
+                </button>
+                <button class="aba-btn" data-tab="rota_trindade">
+                    TRINDADE
+                </button>
+            </div>
+            <!--Fim aba de rota-->
+
+
+            <!--Rota Goiânia-->
+            <div id="rota_goiania" class="aba_rota_conteudo active">
+
+                <div class="acao_topo">
+                    <input type="search" name="pesquisa_aluno" id="pesquisa_aluno-goiania"
+                        placeholder="PESQUISAR ALUNO" autocomplete="off">
+                    <button type="button" class="cadastrar_aluno-adm">CADASTRAR</button>
+                </div>
+
+                <section class="alunos">
+                    {% for aluno in goiania %}
+                    <div class="card_aluno" data-id="{{ aluno[0] }}">
+                        <form action="{{ url_for('editar_aluno', id=aluno[0]) }}" method="POST"
+                            enctype="multipart/form-data">
+                            <input type="hidden" class="id_aluno" value="{{ aluno[0] }}">
+
+                            <div class="dados_aluno">
+                                <div class="campo">
+                                    <span class="titulo">NOME</span>
+                                    <h3>{{ aluno[1] }}</h3>
+                                </div>
+                                <div class="campo">
+                                    <span class="titulo">TELEFONE</span>
+                                    <p>{{ aluno[2] }}</p>
+                                </div>
+                            </div>
+
+                            <div class="acoes">
+                                <button type="button" class="btn_aluno btn_edit">EDITAR</button>
+                                <a href="{{ url_for('excluir_aluno', id=aluno[0]) }}" class="btn_aluno btn_del"
+                                    onclick="return confirm('Deseja realmente excluir este aluno?')">EXCLUIR</a>
+                            </div>
+
+                            <div class="box_edit" style="display: none;">
+                                <h2 class="titulo_edit">INFORMAÇÃO DE ALUNO</h2>
+                                <div id="perfil_hero">
+                                    <div id="avatar">
+                                        {% if docs_alunos.get(aluno[0], {}).get('foto_perfil') %}
+                                        <img src="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='foto_perfil') }}"
+                                            alt="Foto de perfil">
+                                        {% else %}
+                                        <i class="fa-solid fa-user"></i>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <input type="text" name="nome" class="nome" value="{{ aluno[1] }}"
+                                    placeholder="Nome" autocomplete="off" required>
+                                <input type="text" name="user" class="user" value="{{ aluno[5] }}"
+                                    placeholder="Apelido" autocomplete="off" required>
+                                <input type="tel" name="telefone" class="telefone" value="{{ aluno[2] }}"
+                                    placeholder="(DD) 99999-9999" autocomplete="off" required>
+                                <input type="text" name="cpf" class="cpf" value="{{ aluno[3] }}"
+                                    placeholder="999.999.999-99" autocomplete="off" required>
+                                <input type="email" name="email" class="email" value="{{ aluno[4] }}"
+                                    placeholder="Exemplo999@gmail.com" autocomplete="off" required>
+                                <input type="password" name="senha" class="register_senha_aluno"
+                                    value="{{ aluno[6] }}" placeholder="Senha" autocomplete="off" required>
+                                <span class="divisor"></span>
+                                <input type="text" name="faculdade" class="faculdade_edit" value="{{ aluno[7] }}"
+                                    placeholder="Faculdade" autocomplete="off" required>
+                                <input type="text" name="curso" class="curso" value="{{ aluno[8] }}"
+                                    placeholder="Curso" autocomplete="off" required>
+                                <select name="rota" class="rota" required>
+                                    <option value="goiania" {% if aluno[9]=='goiania' %}selected{% endif %}>Goiânia</option>
+                                    <option value="trindade" {% if aluno[9]=='trindade' %}selected{% endif %}>Trindade</option>
+                                </select>
+                                <p class="mensagem_erro"></p>
+                                <button type="button" class="btn_info-anexo">PRÓXIMO</button>
+                                <button type="button" class="btn_fechar-edit">FECHAR</button>
+                            </div>
+
+                            <div class="box_edit2" style="display: none;">
+                                <h2 class="titulo_edit2">ANEXO DE DOCUMENTOS</h2>
+                                <label>FOTO DE PERFIL</label>
+                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='foto_perfil') }}" target="_blank">Visualizar Foto de Perfil</a>
+                                <input type="file" name="ft_perfil" class="ft_perfil" accept=".png,.jpg,.jpeg">
+                                <label>RG FRENTE</label>
+                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='rg_frente') }}" target="_blank">Visualizar RG Frente</a>
+                                <input type="file" name="rg_frente" class="rg_frente" accept=".pdf,.png,.jpg,.jpeg">
+                                <label>RG VERSO</label>
+                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='rg_verso') }}" target="_blank">Visualizar RG Verso</a>
+                                <input type="file" name="rg_verso" class="rg_verso" accept=".pdf,.png,.jpg,.jpeg">
+                                <label>COMPROVANTE DE ENDEREÇO</label>
+                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='comprovante_endereco') }}" target="_blank">Visualizar Comprovante de Endereço</a>
+                                <input type="file" name="comprovante_endereco" class="comprovante_endereco" accept=".pdf,.png,.jpg,.jpeg">
+                                <label>COMPROVANTE DE MATRÍCULA</label>
+                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='comprovante_matricula') }}" target="_blank">Visualizar Comprovante de Matrícula</a>
+                                <input type="file" name="comprovante_matricula" class="comprovante_matricula" accept=".pdf,.png,.jpg,.jpeg">
+                                <p class="mensagem_erro-anexo"></p>
+                                <button type="submit" class="btn_salvar">SALVAR</button>
+                                <button type="button" class="btn_voltar-info1 btn_voltar">VOLTAR</button>
+                            </div>
+                        </form>
+                    </div>
+                    {% endfor %}
+
+                    {% if mostrar_mensagem_goiania %}
+                    <div class="sem_alunos">
+                        <i class="fa-solid fa-user-graduate"></i>
+                        <h3>Nenhum aluno cadastrado</h3>
+                        <p>Cadastre um aluno para visualizar os registros.</p>
+                    </div>
+                    {% endif %}
+                </section>
+
+                <aside class="faculdade">
+                    <h2>FACULDADES</h2>
+                    <ul>
+                        {% for faculdade in faculdade_goiania %}
+                        <li>{{ faculdade[0] }}</li>
+                        {% endfor %}
+                        {% if mostrar_mensagem_goiania %}
+                        <div class="sem_faculdade">
+                            <i class="fa-solid fa-school"></i>
+                            <h3>Nenhum faculdade cadastrado</h3>
+                            <p>Cadastre um aluno para visualizar as faculdades.</p>
+                        </div>
+                        {% endif %}
+                    </ul>
+                </aside>
+
+            </div>
+            <!--Fim rota goiânia-->
+
+
+            <!--Rota Trindade-->
+            <div id="rota_trindade" class="aba_rota_conteudo">
+
+                <div class="acao_topo">
+                    <input type="search" name="pesquisa_aluno" id="pesquisa_aluno-trindade"
+                        placeholder="PESQUISAR ALUNO">
+                    <button type="button" class="cadastrar_aluno-adm">CADASTRAR</button>
+                </div>
+
+                <section class="alunos">
+                    {% for aluno in trindade %}
+                    <div class="card_aluno" data-id="{{ aluno[0] }}">
+                        <form action="{{ url_for('editar_aluno', id=aluno[0]) }}" method="POST"
+                            enctype="multipart/form-data">
+                            <input type="hidden" class="id_aluno" value="{{ aluno[0] }}">
+
+                            <div class="dados_aluno">
+                                <div class="campo">
+                                    <span class="titulo">NOME</span>
+                                    <h3>{{ aluno[1] }}</h3>
+                                </div>
+                                <div class="campo">
+                                    <span class="titulo">TELEFONE</span>
+                                    <p>{{ aluno[2] }}</p>
+                                </div>
+                            </div>
+
+                            <div class="acoes">
+                                <button type="button" class="btn_aluno btn_edit">EDITAR</button>
+                                <a href="{{ url_for('excluir_aluno', id=aluno[0]) }}" class="btn_aluno btn_del"
+                                    onclick="return confirm('Deseja realmente excluir este aluno?')">EXCLUIR</a>
+                            </div>
+
+                            <div class="box_edit" style="display: none;">
+                                <h2 class="titulo_edit">INFORMAÇÃO DE ALUNO</h2>
+                                <input type="text" name="nome" class="nome" value="{{ aluno[1] }}"
+                                    placeholder="Nome" autocomplete="off" required>
+                                <input type="text" name="user" class="user" value="{{ aluno[5] }}"
+                                    placeholder="Apelido" autocomplete="off" required>
+                                <input type="tel" name="telefone" class="telefone" value="{{ aluno[2] }}"
+                                    placeholder="(DD) 99999-9999" autocomplete="off" required>
+                                <input type="text" name="cpf" class="cpf" value="{{ aluno[3] }}"
+                                    placeholder="999.999.999-99" autocomplete="off" required>
+                                <input type="email" name="email" class="email" value="{{ aluno[4] }}"
+                                    placeholder="Exemplo999@gmail.com" autocomplete="off" required>
+                                <input type="password" name="senha" class="register_senha_aluno"
+                                    value="{{ aluno[6] }}" placeholder="Senha" autocomplete="off" required>
+                                <span class="divisor"></span>
+                                <input type="text" name="faculdade" class="faculdade_edit" value="{{ aluno[7] }}"
+                                    placeholder="Faculdade" autocomplete="off" required>
+                                <input type="text" name="curso" class="curso" value="{{ aluno[8] }}"
+                                    placeholder="Curso" autocomplete="off" required>
+                                <select name="rota" class="rota" required>
+                                    <option value="goiania" {% if aluno[9]=='goiania' %}selected{% endif %}>Goiânia</option>
+                                    <option value="trindade" {% if aluno[9]=='trindade' %}selected{% endif %}>Trindade</option>
+                                </select>
+                                <p class="mensagem_erro"></p>
+                                <button type="button" class="btn_info-anexo">PRÓXIMO</button>
+                                <button type="button" class="btn_fechar-edit">FECHAR</button>
+                            </div>
+
+                            <div class="box_edit2" style="display: none;">
+                                <h2 class="titulo_edit2">ANEXO DE DOCUMENTOS</h2>
+                                <label>FOTO DE PERFIL</label>
+                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='foto_perfil') }}" target="_blank">Visualizar Foto</a>
+                                <input type="file" name="ft_perfil" class="ft_perfil" accept=".png,.jpg,.jpeg">
+                                <label>RG FRENTE</label>
+                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='rg_frente') }}" target="_blank">Visualizar RG Frente</a>
+                                <input type="file" name="rg_frente" class="rg_frente" accept=".pdf,.png,.jpg,.jpeg">
+                                <label>RG VERSO</label>
+                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='rg_verso') }}" target="_blank">Visualizar RG Verso</a>
+                                <input type="file" name="rg_verso" class="rg_verso" accept=".pdf,.png,.jpg,.jpeg">
+                                <label>COMPROVANTE DE ENDEREÇO</label>
+                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='comprovante_endereco') }}" target="_blank">Visualizar Comprovante de Endereço</a>
+                                <input type="file" name="comprovante_endereco" class="comprovante_endereco" accept=".pdf,.png,.jpg,.jpeg">
+                                <label>COMPROVANTE DE MATRÍCULA</label>
+                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='comprovante_matricula') }}" target="_blank">Visualizar Comprovante de Matrícula</a>
+                                <input type="file" name="comprovante_matricula" class="comprovante_matricula" accept=".pdf,.png,.jpg,.jpeg">
+                                <p class="mensagem_erro-anexo"></p>
+                                <button type="submit" class="btn_salvar">SALVAR</button>
+                                <button type="button" class="btn_voltar-info1 btn_voltar">VOLTAR</button>
+                            </div>
+                        </form>
+                    </div>
+                    {% endfor %}
+
+                    {% if mostrar_mensagem_trindade %}
+                    <div class="sem_alunos">
+                        <i class="fa-solid fa-user-graduate"></i>
+                        <h3>Nenhum aluno cadastrado</h3>
+                        <p>Cadastre um aluno para visualizar os registros.</p>
+                    </div>
+                    {% endif %}
+                </section>
+
+                <aside class="faculdade">
+                    <h2>FACULDADES</h2>
+                    <ul>
+                        {% for faculdade in faculdade_trindade %}
+                        <li>{{ faculdade[0] }}</li>
+                        {% endfor %}
+                        {% if mostrar_mensagem_trindade %}
+                        <div class="sem_faculdade">
+                            <i class="fa-solid fa-school"></i>
+                            <h3>Nenhum faculdade cadastrado</h3>
+                            <p>Cadastre um aluno para visualizar as faculdades.</p>
+                        </div>
+                        {% endif %}
+                    </ul>
+                </aside>
+
+            </div>
+            <!--Fim rota trindade-->
+
+        </section>
+        <!--Fim Main da pág. ADM-->
+
+    </main>
+
+    <!--MODAL CADASTRO - FORA DAS ABAS-->
+    <form id="form_cadastro" action="/cadastro_admin" method="POST" enctype="multipart/form-data">
+        <div id="registrar_aluno-adm" style="display: none;">
+            <h2 class="titulo_register">CADASTRO DE ALUNO</h2>
+            <input type="text" name="nome" id="nome-adm" placeholder="NOME" autocomplete="off" required>
+            <input type="text" name="user" id="user-adm" placeholder="APELIDO" autocomplete="off" required>
+            <input type="tel" name="telefone" id="telefone-adm" placeholder="(DD) 99999-9999" autocomplete="off" required>
+            <input type="text" name="cpf" id="cpf-adm" placeholder="999.999.999-99" autocomplete="off" required>
+            <input type="email" name="email" id="email-adm" placeholder="EXEMPLO@gmail.com" autocomplete="off" required>
+            <input type="password" name="senha" id="register_senha_aluno-adm" placeholder="SENHA" autocomplete="off" required>
+            <span class="divisor"></span>
+            <input type="text" name="faculdade" id="faculdade-adm" placeholder="FACULDADE - UNIDADE" autocomplete="off" required>
+            <input type="text" name="curso" id="curso-adm" placeholder="CURSO" autocomplete="off" required>
+            <select name="rota" id="rota-adm" required>
+                <option value="" selected disabled>SELECIONE A CIDADE</option>
+                <option value="goiania">GOIÂNIA</option>
+                <option value="trindade">TRINDADE</option>
+            </select>
+            <p class="mensagem_erro"></p>
+            <button type="button" id="btn_add-anexo-adm">PRÓXIMO</button>
+            <button type="button" id="btn_voltar-adm" class="btn_voltar">VOLTAR</button>
+        </div>
+
+        <div id="anexo_documento-adm" style="display: none;">
+            <h2 class="titulo_register">ANEXO DE DOCUMENTOS</h2>
+            <label>FOTO DE PERFIL:</label>
+            <input type="file" name="ft_perfil" id="ft_perfil-adm" accept=".png, .jpg, .jpeg" required>
+            <label>IDENTIDADE (FRENTE):</label>
+            <input type="file" name="rg_frente" id="rg_frente-adm" accept=".pdf, .png, .jpg, .jpeg" required>
+            <label>IDENTIDADE (VERSO):</label>
+            <input type="file" name="rg_verso" id="rg_verso-adm" accept=".pdf, .png, .jpg, .jpeg" required>
+            <label>COMPROVANTE DE ENDEREÇO:</label>
+            <input type="file" name="comprovante_endereco" id="comprovante_endereco-adm" accept=".pdf, .png, .jpg, .jpeg" required>
+            <label>COMPROVANTE DE MATRÍCULA:</label>
+            <input type="file" name="comprovante_matricula" id="comprovante_matricula-adm" accept=".pdf, .png, .jpg, .jpeg" required>
+            <p id="mensagem_erro-anexo"></p>
+            <button type="submit" id="btn_register">REGISTAR</button>
+            <button type="button" id="btn_voltar-cadastro" class="btn_voltar">VOLTAR</button>
+        </div>
+    </form>
+    <!--FIM MODAL CADASTRO-->
+
+    <!--Overlay-->
+    <div id="overlay"></div>
+
+    <script src="/static/adm.js"></script>
+</body>
+</html>

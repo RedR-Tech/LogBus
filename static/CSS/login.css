@@ -1,0 +1,141 @@
+@import url(/static/CSS/Style.css);
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--azul-principal), var(--azul-claro));
+}
+
+main {
+    width: 100%;
+    max-width: 425px;
+}
+
+header {
+    text-align: center;
+    color: var(--branco);
+    margin-bottom: 25px;
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.login-box {
+    background: var(--branco);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .20);
+}
+
+.aba {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--cinza-aba);
+}
+
+.aba-btn {
+    background: transparent;
+    color: #666;
+    border-radius: 0;
+    width: auto;
+    padding: 12px 24px;
+    margin: 5px;
+}
+
+.aba-btn:hover {
+    background: var(--branco-hover);
+    color: var(--azul-principal);
+}
+
+.aba-btn.active {
+    background: var(--branco);
+    color: var(--azul-principal);
+    border-bottom: 4px solid var(--laranja);
+}
+
+.aba-conteudo {
+    display: none;
+}
+
+.aba-conteudo.active {
+    display: block;
+}
+
+.titulo {
+    text-align: center;
+    color: var(--azul-principal);
+    margin-bottom: 25px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+    border-radius: 8px;
+    border: 2px solid var(--cinza-borda-input);
+    font-size: 1rem;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--azul-principal);
+    box-shadow:
+        0 0 10px rgba(0, 87, 184, .2);
+}
+
+.mensagem_erro {
+    color: var(--vermelho-erro);
+    text-align: center;
+    font-weight: bold;
+    margin: 2px;
+}
+
+.btn {
+    padding: 12px;
+    width: 100%;
+    background-color: var(--laranja);
+    color: var(--branco);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .3s;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.btn:hover {
+    background-color: var(--laranja-hover);
+}
+
+#btn_registrar {
+    display: block;
+    width: 50%;
+    margin: 10px auto 0;
+    padding: 10px;
+    background-color: var(--branco);
+    color: var(--azul-principal);
+    border: 1px solid var(--cinza-borda-input);
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    transition: .3s;
+}

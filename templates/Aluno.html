@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='CSS/aluno.css')}}">
+    <title>LogBus - Aluno</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>LOGBUS</h1>
+        <p>Sistema de Gestão de Transporte</p>
+    </header>
+
+    <main>
+
+        <!-- HERO -->
+        <div id="perfil_hero">
+            <div id="avatar">
+                {% if aluno.foto_perfil %}
+                <img src="{{ url_for('visualizar_documento', aluno_id=aluno.id, tipo='foto_perfil') }}"
+                    alt="Foto de perfil">
+                {% else %}
+                <i class="fa-solid fa-user"></i>
+                {% endif %}
+            </div>
+            <p id="perfil_nome">{{ aluno.nome }}</p>
+            <p id="perfil_info">{{ aluno.curso }} · {{ aluno.faculdade }}</p>
+
+            <a href="{{ url_for('tela_principal')}}" id="btn_sair">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                SAIR
+            </a>
+        </div>
+
+        <!-- STATUS -->
+        <div id="card_status" class="{% if aluno.status == 'Ativo' %}status_aprovado{% else %}status_espera{% endif %}">
+            <div class="status_topo">
+                <div class="status_icone_wrap">
+                    {% if aluno.status == 'Ativo' %}
+                    <i class="fa-solid fa-circle-check"></i>
+                    {% else %}
+                    <i class="fa-solid fa-clock"></i>
+                    {% endif %}
+                </div>
+                <div>
+                    <p class="status_label">Status da vaga</p>
+                    {% if aluno.status == 'Ativo' %}
+                    <p class="status_titulo">Aprovado</p>
+                    <p class="status_desc">Sua vaga está confirmada. Bom estudo!</p>
+                    {% else %}
+                    <p class="status_titulo">Aguardando Aprovação</p>
+                    <p class="status_desc">Seu cadastro está em análise pelo administrador.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="progresso_steps">
+                <div class="passo passo_feito">
+                    <div class="passo_bolinha"><i class="fa-solid fa-check"></i></div>
+                    <span class="passo_nome">Cadastro</span>
+                </div>
+                <div class="passo_linha {% if aluno.status == 'Ativo' %}linha_feita{% else %}linha_feita{% endif %}">
+                </div>
+                <div class="passo {% if aluno.status == 'Ativo' %}passo_feito{% else %}passo_atual{% endif %}">
+                    <div class="passo_bolinha {% if aluno.status != 'Ativo' %}piscando{% endif %}">
+                        {% if aluno.status == 'Ativo' %}
+                        <i class="fa-solid fa-check"></i>
+                        {% else %}
+                        <i class="fa-solid fa-clock"></i>
+                        {% endif %}
+                    </div>
+                    <span class="passo_nome">Análise</span>
+                </div>
+                <div class="passo_linha {% if aluno.status == 'Ativo' %}linha_feita{% else %}linha_vazia{% endif %}">
+                </div>
+                <div class="passo {% if aluno.status == 'Ativo' %}passo_feito{% else %}passo_pendente{% endif %}">
+                    <div class="passo_bolinha">
+                        {% if aluno.status == 'Ativo' %}
+                        <i class="fa-solid fa-check"></i>
+                        {% else %}
+                        3
+                        {% endif %}
+                    </div>
+                    <span class="passo_nome">Aprovado</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTEÚDO -->
+        <div id="conteudo">
+
+            <!-- CARD ÔNIBUS -->
+            <div id="card_onibus">
+                <div class="onibus_cabecalho">
+                    <div class="onibus_cabecalho_esq">
+                        <i class="fa-solid fa-bus"></i>
+                        <h3>Horários do Ônibus</h3>
+                    </div>
+                    <span class="rota_pill">{{ aluno.rota | capitalize }}</span>
+                </div>
+
+                <!-- Próximo destaque -->
+                <div id="proximo_onibus">
+                    <div id="proximo_icone">
+                        <i class="fa-solid fa-bus"></i>
+                    </div>
+                    <div>
+                        <p class="proximo_label">Próxima saída</p>
+                        <p id="proximo_horario">--:--</p>
+                        <p id="proximo_tipo_desc">--</p>
+                    </div>
+                    <div id="tempo_restante">
+                        <p id="tempo_numero">--</p>
+                        <p id="tempo_label">min</p>
+                    </div>
+                </div>
+
+                <!-- Turno da tarde -->
+                <div class="turno_bloco">
+                    <p class="turno_titulo">
+                        <i class="fa-solid fa-cloud-sun"></i> Turno da Tarde
+                    </p>
+                    <div class="turno_grid">
+                        <div class="item_horario" id="h_tarde_ida">
+                            <p class="tipo_faixa faixa_ida"><i class="fa-solid fa-arrow-right"></i> Ida</p>
+                            <p class="horario_hora">16:00</p>
+                            <p class="horario_chegada_text">Chegada ~19:00</p>
+                        </div>
+                        <div class="item_horario" id="h_tarde_volta">
+                            <p class="tipo_faixa faixa_volta"><i class="fa-solid fa-arrow-left"></i> Volta</p>
+                            <p class="horario_hora">22:30</p>
+                            <p class="horario_chegada_text">Chegada ~00:30</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DADOS PESSOAIS -->
+            <div class="secao">
+                <div class="secao_cabecalho">
+                    <i class="fa-solid fa-user"></i>
+                    <h3>Dados Pessoais</h3>
+                </div>
+                <div class="secao_corpo">
+                    <div class="grid_dados">
+                        <div class="campo_dado campo_full">
+                            <span class="dado_label">Nome Completo</span>
+                            <span class="dado_valor">{{ aluno.nome }}</span>
+                        </div>
+                        <div class="campo_dado">
+                            <span class="dado_label">Apelido</span>
+                            <span class="dado_valor">{{ aluno.usuario }}</span>
+                        </div>
+                        <div class="campo_dado">
+                            <span class="dado_label">Telefone</span>
+                            <span class="dado_valor">{{ aluno.telefone }}</span>
+                        </div>
+                        <div class="campo_dado">
+                            <span class="dado_label">CPF</span>
+                            <span class="dado_valor">{{ aluno.cpf }}</span>
+                        </div>
+                        <div class="campo_dado campo_full">
+                            <span class="dado_label">E-mail</span>
+                            <span class="dado_valor">{{ aluno.email }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DADOS ACADÊMICOS -->
+            <div class="secao">
+                <div class="secao_cabecalho">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <h3>Dados Acadêmicos</h3>
+                </div>
+                <div class="secao_corpo">
+                    <div class="grid_dados">
+                        <div class="campo_dado campo_full">
+                            <span class="dado_label">Faculdade</span>
+                            <span class="dado_valor">{{ aluno.faculdade }}</span>
+                        </div>
+                        <div class="campo_dado">
+                            <span class="dado_label">Curso</span>
+                            <span class="dado_valor">{{ aluno.curso }}</span>
+                        </div>
+                        <div class="campo_dado">
+                            <span class="dado_label">Rota</span>
+                            <span class="dado_valor">
+                                <span class="rota_badge">
+                                    <i class="fa-solid fa-bus"></i> {{ aluno.rota | capitalize }}
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOCUMENTOS -->
+            <div class="secao">
+                <div class="secao_cabecalho">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <h3>Documentos Enviados</h3>
+                </div>
+                <div class="secao_corpo">
+                    <div id="lista_documentos">
+
+                        <div class="item_doc">
+                            <div class="doc_icone_wrap"><i class="fa-solid fa-image"></i></div>
+                            <span class="doc_nome">Foto de Perfil</span>
+                            {% if aluno.foto_perfil %}
+                            <span class="doc_badge badge_enviado"><i class="fa-solid fa-check"></i> Enviado</span>
+                            {% else %}
+                            <span class="doc_badge badge_pendente"><i class="fa-solid fa-clock"></i> Pendente</span>
+                            {% endif %}
+                        </div>
+
+                        {% for doc in docs_espec %}
+                        <div class="item_doc">
+                            <div class="doc_icone_wrap">
+                                {% if 'rg' in doc.tipo %}
+                                <i class="fa-solid fa-id-card"></i>
+                                {% else %}
+                                <i class="fa-solid fa-file-lines"></i>
+                                {% endif %}
+                            </div>
+                            <span class="doc_nome">{{ doc.nome }}</span>
+                            <span class="doc_badge badge_enviado"><i class="fa-solid fa-check"></i> Enviado</span>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="/static/aluno.js"></script>
+
+</body>
+
+</html>
