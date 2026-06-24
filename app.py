@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, redirect, url_for, send_file,
 import banco
 import mariadb
 import os
+from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
 import shutil
 
@@ -24,14 +25,16 @@ print(app.config["UPLOAD_FOLDER"])
 
 os.makedirs('uploads', exist_ok=True)
 
+load_dotenv()
+
 # CONEXÃO COM O BANCO DE DADOS
 def conectar_banco():
     return mariadb.connect(
-        host="localhost",
-        port=3306,
-        user="root",
-        password="dbtransporte",
-        database="transporte"
+        host=os.getenv("DB_HOST"),
+        port=int(os.getenv("DB_PORT")),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        database=os.getenv("DB_NAME")
     )
 
 def salvar_arquivo(arquivo, nome_arquivo, aluno_id):
