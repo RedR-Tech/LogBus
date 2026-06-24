@@ -22,7 +22,7 @@ const anexoDocumento = document.getElementById("anexo_documento");
 const mensagemErro = document.getElementById("mensagem_erro");
 const mensagemErroAnexo = document.getElementById("mensagem_erro-anexo")
 
-const MODO_TESTE = true;
+const MODO_TESTE = false;
 
 // ==========================
 // NOME (50 caracteres)
