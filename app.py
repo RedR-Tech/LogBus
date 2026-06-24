@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for, send_file, session
 import banco
-import mariadb
+import pymysql
 import os
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
@@ -29,7 +29,7 @@ load_dotenv()
 
 # CONEXÃO COM O BANCO DE DADOS
 def conectar_banco():
-    return mariadb.connect(
+    return pymysql.connect(
         host=os.getenv("DB_HOST"),
         port=int(os.getenv("DB_PORT")),
         user=os.getenv("DB_USER"),
