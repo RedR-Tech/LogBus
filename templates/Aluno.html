@@ -23,7 +23,7 @@
         <div id="perfil_hero">
             <div id="avatar">
                 {% if aluno.foto_perfil %}
-                <img src="{{ url_for('visualizar_documento', aluno_id=aluno.id, tipo='foto_perfil') }}"
+                <img src="{{ url_for('admin.visualizar_documento', aluno_id=aluno.id, tipo='foto_perfil') }}"
                     alt="Foto de perfil">
                 {% else %}
                 <i class="fa-solid fa-user"></i>
@@ -32,7 +32,7 @@
             <p id="perfil_nome">{{ aluno.nome }}</p>
             <p id="perfil_info">{{ aluno.curso }} · {{ aluno.faculdade }}</p>
 
-            <a href="{{ url_for('tela_principal')}}" id="btn_sair">
+            <a href="{{ url_for('auth.tela_principal')}}" id="btn_sair">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 SAIR
             </a>

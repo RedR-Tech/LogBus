@@ -96,6 +96,46 @@ cpf.addEventListener("input", () => {
 });
 
 // ==========================
+// VERIFICAR DUPLICADOS
+// ==========================
+
+async function verificarCampo(url, spanId) {
+    const span = document.getElementById(spanId);
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.existe) {
+            span.textContent = "Já cadastrado no sistema!";
+            return true;
+        } else {
+            span.textContent = "";
+            return false;
+        }
+    } catch {
+        span.textContent = "";
+        return false;
+    }
+}
+
+cpf.addEventListener("blur", () => {
+    if (validarCPF(cpf.value)) {
+        verificarCampo(`/verificar/cpf/${cpf.value}`, "erro_cpf");
+    }
+});
+
+email.addEventListener("blur", () => {
+    if (email.value.trim() !== "") {
+        verificarCampo(`/verificar/email/${email.value}`, "erro_email");
+    }
+});
+
+user.addEventListener("blur", () => {
+    if (user.value.trim() !== "") {
+        verificarCampo(`/verificar/usuario/${user.value}`, "erro_user");
+    }
+});
+
+// ==========================
 // VALIDAR CPF
 // ==========================
 function validarCPF(cpf) {
@@ -156,6 +196,14 @@ function validarSenha(senha) {
 // BOTÃO PRÓXIMO
 // ==========================
 btnProximo.addEventListener("click", () => {
+    const cpfDuplicado = document.getElementById("erro_cpf").textContent !== "";
+    const emailDuplicado = document.getElementById("erro_email").textContent !== "";
+    const userDuplicado = document.getElementById("erro_user").textContent !== "";
+
+    if (cpfDuplicado || emailDuplicado || userDuplicado) {
+        mensagemErro.textContent = "Corrija os campos em vermelho antes de continuar.";
+        return;
+    }
 
     mensagemErro.textContent = "";
 

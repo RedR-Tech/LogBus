@@ -31,7 +31,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ url_for('admin')}}">
+                    <a href="{{ url_for('admin.admin')}}">
                         <i class="fa-solid fa-house"></i>
                         INÍCIO
                     </a>
@@ -45,13 +45,13 @@
                 </li>
 
                 <li>
-                    <a href="{{ url_for('lista_espera')}}">
+                    <a href="{{ url_for('admin.lista_espera')}}">
                         <i class="fa-solid fa-clock"></i>
                         LISTA DE ESPERA
                     </a>
                 </li>
 
-                <a href="{{ url_for('tela_principal')}}" id="btn_sair">
+                <a href="{{ url_for('auth.tela_principal')}}" id="btn_sair">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     SAIR
                 </a>

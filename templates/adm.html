@@ -30,27 +30,27 @@
                 </li>
 
                 <li>
-                    <a href="{{ url_for('admin')}}" id="nav_ativo">
+                    <a href="{{ url_for('admin.admin')}}" id="nav_ativo">
                         <i class="fa-solid fa-house"></i>
                         INÍCIO
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ url_for('dashboard')}}">
+                    <a href="{{ url_for('admin.dashboard')}}">
                         <i class="fa-solid fa-chart-line"></i>
                         DASHBOARD
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ url_for('lista_espera')}}">
+                    <a href="{{ url_for('admin.lista_espera')}}">
                         <i class="fa-solid fa-clock"></i>
                         LISTA DE ESPERA
                     </a>
                 </li>
 
-                <a href="{{ url_for('tela_principal')}}" id="btn_sair">
+                <a href="{{ url_for('auth.tela_principal')}}" id="btn_sair">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     SAIR
                 </a>
@@ -86,7 +86,7 @@
                 <section class="alunos">
                     {% for aluno in goiania %}
                     <div class="card_aluno" data-id="{{ aluno[0] }}">
-                        <form action="{{ url_for('editar_aluno', id=aluno[0]) }}" method="POST"
+                        <form action="{{ url_for('admin.editar_aluno', id=aluno[0]) }}" method="POST"
                             enctype="multipart/form-data">
                             <input type="hidden" class="id_aluno" value="{{ aluno[0] }}">
 
@@ -103,7 +103,7 @@
 
                             <div class="acoes">
                                 <button type="button" class="btn_aluno btn_edit">EDITAR</button>
-                                <a href="{{ url_for('excluir_aluno', id=aluno[0]) }}" class="btn_aluno btn_del"
+                                <a href="{{ url_for('admin.excluir_aluno', id=aluno[0]) }}" class="btn_aluno btn_del"
                                     onclick="return confirm('Deseja realmente excluir este aluno?')">EXCLUIR</a>
                             </div>
 
@@ -112,7 +112,7 @@
                                 <div id="perfil_hero">
                                     <div id="avatar">
                                         {% if docs_alunos.get(aluno[0], {}).get('foto_perfil') %}
-                                        <img src="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='foto_perfil') }}"
+                                        <img src="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='foto_perfil') }}"
                                             alt="Foto de perfil">
                                         {% else %}
                                         <i class="fa-solid fa-user"></i>
@@ -148,19 +148,19 @@
                             <div class="box_edit2" style="display: none;">
                                 <h2 class="titulo_edit2">ANEXO DE DOCUMENTOS</h2>
                                 <label>FOTO DE PERFIL</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='foto_perfil') }}" target="_blank">Visualizar Foto de Perfil</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='foto_perfil') }}" target="_blank">Visualizar Foto de Perfil</a>
                                 <input type="file" name="ft_perfil" class="ft_perfil" accept=".png,.jpg,.jpeg">
                                 <label>RG FRENTE</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='rg_frente') }}" target="_blank">Visualizar RG Frente</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='rg_frente') }}" target="_blank">Visualizar RG Frente</a>
                                 <input type="file" name="rg_frente" class="rg_frente" accept=".pdf,.png,.jpg,.jpeg">
                                 <label>RG VERSO</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='rg_verso') }}" target="_blank">Visualizar RG Verso</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='rg_verso') }}" target="_blank">Visualizar RG Verso</a>
                                 <input type="file" name="rg_verso" class="rg_verso" accept=".pdf,.png,.jpg,.jpeg">
                                 <label>COMPROVANTE DE ENDEREÇO</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='comprovante_endereco') }}" target="_blank">Visualizar Comprovante de Endereço</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='comprovante_endereco') }}" target="_blank">Visualizar Comprovante de Endereço</a>
                                 <input type="file" name="comprovante_endereco" class="comprovante_endereco" accept=".pdf,.png,.jpg,.jpeg">
                                 <label>COMPROVANTE DE MATRÍCULA</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='comprovante_matricula') }}" target="_blank">Visualizar Comprovante de Matrícula</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='comprovante_matricula') }}" target="_blank">Visualizar Comprovante de Matrícula</a>
                                 <input type="file" name="comprovante_matricula" class="comprovante_matricula" accept=".pdf,.png,.jpg,.jpeg">
                                 <p class="mensagem_erro-anexo"></p>
                                 <button type="submit" class="btn_salvar">SALVAR</button>
@@ -211,7 +211,7 @@
                 <section class="alunos">
                     {% for aluno in trindade %}
                     <div class="card_aluno" data-id="{{ aluno[0] }}">
-                        <form action="{{ url_for('editar_aluno', id=aluno[0]) }}" method="POST"
+                        <form action="{{ url_for('admin.editar_aluno', id=aluno[0]) }}" method="POST"
                             enctype="multipart/form-data">
                             <input type="hidden" class="id_aluno" value="{{ aluno[0] }}">
 
@@ -228,7 +228,7 @@
 
                             <div class="acoes">
                                 <button type="button" class="btn_aluno btn_edit">EDITAR</button>
-                                <a href="{{ url_for('excluir_aluno', id=aluno[0]) }}" class="btn_aluno btn_del"
+                                <a href="{{ url_for('admin.excluir_aluno', id=aluno[0]) }}" class="btn_aluno btn_del"
                                     onclick="return confirm('Deseja realmente excluir este aluno?')">EXCLUIR</a>
                             </div>
 
@@ -263,19 +263,19 @@
                             <div class="box_edit2" style="display: none;">
                                 <h2 class="titulo_edit2">ANEXO DE DOCUMENTOS</h2>
                                 <label>FOTO DE PERFIL</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='foto_perfil') }}" target="_blank">Visualizar Foto</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='foto_perfil') }}" target="_blank">Visualizar Foto</a>
                                 <input type="file" name="ft_perfil" class="ft_perfil" accept=".png,.jpg,.jpeg">
                                 <label>RG FRENTE</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='rg_frente') }}" target="_blank">Visualizar RG Frente</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='rg_frente') }}" target="_blank">Visualizar RG Frente</a>
                                 <input type="file" name="rg_frente" class="rg_frente" accept=".pdf,.png,.jpg,.jpeg">
                                 <label>RG VERSO</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='rg_verso') }}" target="_blank">Visualizar RG Verso</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='rg_verso') }}" target="_blank">Visualizar RG Verso</a>
                                 <input type="file" name="rg_verso" class="rg_verso" accept=".pdf,.png,.jpg,.jpeg">
                                 <label>COMPROVANTE DE ENDEREÇO</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='comprovante_endereco') }}" target="_blank">Visualizar Comprovante de Endereço</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='comprovante_endereco') }}" target="_blank">Visualizar Comprovante de Endereço</a>
                                 <input type="file" name="comprovante_endereco" class="comprovante_endereco" accept=".pdf,.png,.jpg,.jpeg">
                                 <label>COMPROVANTE DE MATRÍCULA</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='comprovante_matricula') }}" target="_blank">Visualizar Comprovante de Matrícula</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='comprovante_matricula') }}" target="_blank">Visualizar Comprovante de Matrícula</a>
                                 <input type="file" name="comprovante_matricula" class="comprovante_matricula" accept=".pdf,.png,.jpg,.jpeg">
                                 <p class="mensagem_erro-anexo"></p>
                                 <button type="submit" class="btn_salvar">SALVAR</button>

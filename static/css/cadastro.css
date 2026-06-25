@@ -107,6 +107,12 @@ select:focus {
     margin: 2px;
 }
 
+.erro-campo {
+    color: var(--vermelho-erro);
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
 #btn_add-anexo {
     padding: 12px;
     width: 100%;

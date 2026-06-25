@@ -30,14 +30,14 @@
                 </li>
 
                 <li>
-                    <a href="{{ url_for('admin')}}">
+                    <a href="{{ url_for('admin.admin')}}">
                         <i class="fa-solid fa-house"></i>
                         INÍCIO
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ url_for('dashboard')}}">
+                    <a href="{{ url_for('admin.dashboard')}}">
                         <i class="fa-solid fa-chart-line"></i>
                         DASHBOARD
                     </a>
@@ -50,7 +50,7 @@
                     </a>
                 </li>
 
-                <a href="{{ url_for('tela_principal')}}" id="btn_sair">
+                <a href="{{ url_for('auth.tela_principal')}}" id="btn_sair">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     SAIR
                 </a>
@@ -108,11 +108,11 @@
                             </div>
 
                             <div class="acoes">
-                                <a class="btn_aluno btn_aprovado" href="{{ url_for('aprovar_aluno', id=aluno[0]) }}">
+                                <a class="btn_aluno btn_aprovado" href="{{ url_for('admin.aprovar_aluno', id=aluno[0]) }}">
                                     APROVADO
                                 </a>
                                 <button type="button" class="btn_aluno btn_info">INFORMAÇÃO</button>
-                                <a href="{{ url_for('excluir_aluno', id=aluno[0]) }}" class="btn_aluno btn_del"
+                                <a href="{{ url_for('admin.excluir_aluno', id=aluno[0]) }}" class="btn_aluno btn_del"
                                     onclick="return confirm('Deseja realmente excluir este aluno?')">
                                     EXCLUIR
                                 </a>
@@ -165,20 +165,20 @@
                                 <h2 class="titulo">ANEXO DE DOCUMENTOS</h2>
 
                                 <label for="rg_frente">FOTO DE PERFIL:</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='foto_perfil') }}" target="_blank">Visualizar Foto de Perfil</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='foto_perfil') }}" target="_blank">Visualizar Foto de Perfil</a>
 
                                 <label for="rg_frente">INDENTIDADE (FRENTE):</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='rg_frente') }}" target="_blank">Visualizar RG Frente</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='rg_frente') }}" target="_blank">Visualizar RG Frente</a>
 
 
                                 <label for="rg_verso">INDENTIDADE (VERSO):</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='rg_verso') }}" target="_blank">Visualizar RG Verso</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='rg_verso') }}" target="_blank">Visualizar RG Verso</a>
 
                                 <label for="comprovante_endereco">COMPROVANTE DE ENDEREÇO:</label>
-                                 <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='comprovante_endereco') }}" target="_blank">Visualizar Comprovante de Endereço</a>
+                                 <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='comprovante_endereco') }}" target="_blank">Visualizar Comprovante de Endereço</a>
 
                                 <label for="comprovante_matricula">COMPROVANTE DE MATRÍCULA:</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='comprovante_matricula') }}" target="_blank">Visualizar Comprovante de Matrícula</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='comprovante_matricula') }}" target="_blank">Visualizar Comprovante de Matrícula</a>
 
                                 <p class="mensagem_erro-anexo"></p>
 
@@ -228,11 +228,11 @@
                             </div>
 
                             <div class="acoes">
-                                <a class="btn_aluno btn_aprovado" href="{{ url_for('aprovar_aluno', id=aluno[0]) }}">
+                                <a class="btn_aluno btn_aprovado" href="{{ url_for('admin.aprovar_aluno', id=aluno[0]) }}">
                                     APROVADO
                                 </a>
                                 <button type="button" class="btn_aluno btn_info">INFORMAÇÃO</button>
-                                <a href="{{ url_for('excluir_aluno', id=aluno[0]) }}" class="btn_aluno btn_del"
+                                <a href="{{ url_for('admin.excluir_aluno', id=aluno[0]) }}" class="btn_aluno btn_del"
                                     onclick="return confirm('Deseja realmente excluir este aluno?')">
                                     EXCLUIR
                                 </a>
@@ -285,19 +285,19 @@
                                 <h2 class="titulo_info2">ANEXO DE DOCUMENTOS</h2>
 
                                 <label for="rg_frente">FOTO DE PERFIL:</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='foto_perfil') }}" target="_blank">Visualizar Foto de Perfil</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='foto_perfil') }}" target="_blank">Visualizar Foto de Perfil</a>
 
                                 <label for="rg_frente">INDENTIDADE (FRENTE):</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='rg_frente') }}" target="_blank">Visualizar RG Frente</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='rg_frente') }}" target="_blank">Visualizar RG Frente</a>
 
                                 <label for="rg_verso">INDENTIDADE (VERSO):</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='rg_verso') }}" target="_blank">Visualizar RG Verso</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='rg_verso') }}" target="_blank">Visualizar RG Verso</a>
 
                                 <label for="comprovante_endereco">CONPROVANTE DE ENDEREÇO:</label>
-                                 <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='comprovante_endereco') }}" target="_blank">Visualizar Comprovante de Endereço</a>
+                                 <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='comprovante_endereco') }}" target="_blank">Visualizar Comprovante de Endereço</a>
 
                                 <label for="comprovante_matricula">CONPROVANTE DE MATRÍCULA:</label>
-                                <a class="link_documento" href="{{ url_for('visualizar_documento', aluno_id=aluno[0], tipo='comprovante_matricula') }}" target="_blank">Visualizar Comprovante de Matrícula</a>
+                                <a class="link_documento" href="{{ url_for('admin.visualizar_documento', aluno_id=aluno[0], tipo='comprovante_matricula') }}" target="_blank">Visualizar Comprovante de Matrícula</a>
 
                                 <p class="mensagem_erro-anexo"></p>
 
