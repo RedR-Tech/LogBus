@@ -5,7 +5,7 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = '52324f6c083f63119e7b3813693952eed20b07223c6af499aaa872104b9b1c5a'
+app.secret_key = 'SECRET_KEY'
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 app.config["UPLOAD_FOLDER"] = os.path.join(BASE_DIR, "uploads")
